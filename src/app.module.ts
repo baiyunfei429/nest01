@@ -16,8 +16,36 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     //   appSecret: 'YOUR_APP_SECRET',
     //   serviceId: 'nest01',
     // }),
-  PersonModule],
+    PersonModule],
   controllers: [AppController, CatsController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: 'person1',
+      useValue: {
+        name: 'baiyunfei429-2',
+        age: 34,
+      }
+    },
+    {
+      provide: 'person3',
+      useFactory(person1: { name: string }, appService: AppService) {
+        return {
+          name: person1.name,
+          desc: appService.getHello()
+        }
+      },
+      inject: ['person1', AppService]
+    },
+    {
+      provide: 'person4',
+      useFactory(person1: { name: string }, appService: AppService) {
+        return {
+          name: person1.name,
+          desc: appService.getHello()
+        }
+      },
+      inject: ['person1', AppService]
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule { }
