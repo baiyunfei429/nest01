@@ -4,6 +4,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { CatsController } from './cats/cats.controller.js';
 import { PersonModule } from './person/person.module.js';
+import { CccModule } from './ccc/ccc.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -16,7 +17,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     //   appSecret: 'YOUR_APP_SECRET',
     //   serviceId: 'nest01',
     // }),
-    PersonModule],
+    PersonModule,
+    CccModule],
   controllers: [AppController, CatsController],
   providers: [AppService,
     {

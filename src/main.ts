@@ -7,6 +7,9 @@ async function bootstrap() {
     // instrument: ObserveInstrument,
   });
   app.useStaticAssets('public', {prefix: '/static'});
+  setTimeout(() => {
+    app.close();
+  }, 3000);
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();
