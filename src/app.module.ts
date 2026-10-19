@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { CatsController } from './cats/cats.controller.js';
 import { PersonModule } from './person/person.module.js';
 import { CccModule } from './ccc/ccc.module.js';
+import { LogMiddleware } from './log.middleware.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -50,4 +51,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }
   ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LogMiddleware).forRoutes('aaa');
+  }
+}

@@ -16,4 +16,10 @@ export class AppController {
     console.log(this.person3)
     return this.appService.getHello();
   }
+
+  @Get('aaa')
+  getAaa(): string {
+    console.log('get aaa');
+    return 'aaa';
+  }
 }
