@@ -1,12 +1,14 @@
-import { Controller, Get, Inject, Query, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Controller, Get, Inject, Query, UseFilters, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TimeInterceptor } from './time.interceptor.js';
 import { ValidatePipe } from './validate.pipe.js';
+import { TestFilter } from './test.filter.js';
 // import { LoginGuard } from './login.guard.js';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
 // @UsePipes(ValidatePipe)
+// @UseFilters(TestFilter)
 export class AppController {
   constructor(
     private readonly appService: AppService,
@@ -31,6 +33,7 @@ export class AppController {
   }
 
   @Get('ddd')
+  @UseFilters(TestFilter)
   // ccc(@Query('num') num: number) {
   ccc(@Query('num', ValidatePipe) num: number) {
     console.log(typeof(num + 3));

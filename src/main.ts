@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule, ObserveInstrument } from './app.module.js';
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { NextFunction } from 'express';
+import { TestFilter } from './test.filter.js';
 // import { TimeInterceptor } from './time.interceptor.js';
 // import { LoginGuard } from './login.guard.js';
 
@@ -20,6 +21,7 @@ async function bootstrap() {
   // }, 3000);
   // app.useGlobalInterceptors(new TimeInterceptor());
   // app.useGlobalGuards(new LoginGuard());
+  // app.useGlobalFilters(new TestFilter());;
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();

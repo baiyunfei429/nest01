@@ -6,8 +6,11 @@ import { CatsController } from './cats/cats.controller.js';
 import { PersonModule } from './person/person.module.js';
 import { CccModule } from './ccc/ccc.module.js';
 import { LogMiddleware } from './log.middleware.js';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { LoginGuard } from './login.guard.js';
+import { TimeInterceptor } from './time.interceptor.js';
+import { TestFilter } from './test.filter.js';
+import { ValidatePipe } from './validate.pipe.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -55,7 +58,19 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     {
       provide: APP_GUARD,
       useClass: LoginGuard
-    }
+    },
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: ValidatePipe
+    // },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: TestFilter
+    // },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: TimeInterceptor
+    // }
   ],
 })
 export class AppModule implements NestModule {
