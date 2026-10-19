@@ -21,7 +21,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     //   serviceId: 'nest01',
     // }),
     PersonModule,
-    CccModule],
+    CccModule,
+  ],
   controllers: [AppController, CatsController],
   providers: [AppService,
     {
