@@ -1,5 +1,6 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service.js';
+// import { LoginGuard } from './login.guard.js';
 
 @Controller()
 export class AppController {
@@ -18,6 +19,7 @@ export class AppController {
   }
 
   @Get('aaa')
+  // @UseGuards(LoginGuard)
   getAaa(): string {
     console.log('get aaa');
     return 'aaa';

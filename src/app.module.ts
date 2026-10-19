@@ -6,6 +6,8 @@ import { CatsController } from './cats/cats.controller.js';
 import { PersonModule } from './person/person.module.js';
 import { CccModule } from './ccc/ccc.module.js';
 import { LogMiddleware } from './log.middleware.js';
+import { APP_GUARD } from '@nestjs/core';
+import { LoginGuard } from './login.guard.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -48,6 +50,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
         }
       },
       inject: ['person1', AppService]
+    },
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard
     }
   ],
 })
