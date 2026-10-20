@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Query, UseFilters, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Controller, Get, Headers, Inject, Ip, Query, Session, UseFilters, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TimeInterceptor } from './time.interceptor.js';
 import { ValidatePipe } from './validate.pipe.js';
@@ -35,8 +35,29 @@ export class AppController {
   @Get('ddd')
   @UseFilters(TestFilter)
   // ccc(@Query('num') num: number) {
-  ccc(@Query('num', ValidatePipe) num: number) {
+  ccc(@Query('num', ValidatePipe) num: number,
+    @Headers('Accept') accept: string,
+    @Headers('Cookie') cookie: string,
+    @Headers() headers: Record<string, any>,
+    @Ip() ip: string,
+    @Session() session: string,
+  ) {
     console.log(typeof(num + 3));
+    console.log('headers:', cookie, accept, headers);
+    console.log('ip:', ip);
+    console.log('session:', session);
     return num + 3;
+  }
+
+
+  @Get('session')
+  @UseInterceptors(TimeInterceptor)
+  session(@Session() session: Record<string, any>) {
+    console.log('session:', session);
+    if (!session.count) {
+      session.count = 0;
+    }
+    session.count = session.count + 1;
+    return session.count;
   }
 }
