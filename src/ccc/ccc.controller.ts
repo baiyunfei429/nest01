@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HostParam, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HostParam, Req, Res, Next, HttpCode, Header, Redirect } from '@nestjs/common';
 import { CccService } from './ccc.service.js';
 import { CreateCccDto } from './dto/create-ccc.dto.js';
 import { UpdateCccDto } from './dto/update-ccc.dto.js';
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 @Controller({ host: ':host.0.0.1', path: 'ccc' })
 export class CccController {
@@ -30,6 +30,41 @@ export class CccController {
     console.log('444', res);
     // res.end('444');
     return {name: 'bai'};
+  }
+
+  @Get('next')
+  next(@Next() next: NextFunction) {
+    console.log('next function');
+    next();
+    return 'next';
+  }
+
+  @Get('next')
+  next2(@Next() next: NextFunction) {
+    console.log('next2 function');
+    return 'next2';
+  }
+
+  @Get('httpcode')
+  @HttpCode(221)
+  @Header('name', 'bai')
+  getHttpCode() {
+    return 'httpcode';
+  }
+
+  @Get('redirect-test')
+  @Redirect('https://www.baidu.com')
+  redirectTest() {
+    return 'redirect';
+  }
+
+  @Get('redirect-test2')
+  @Redirect()
+  redirectTest2() {
+    return {
+      url: 'https://www.baidu.com?q=bai',
+      statusCode: 302,
+    };
   }
 
   @Get('host')

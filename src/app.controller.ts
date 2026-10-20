@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Inject, Ip, Query, Session, UseFilters, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Controller, Get, Headers, Inject, Ip, Query, Render, Session, UseFilters, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TimeInterceptor } from './time.interceptor.js';
 import { ValidatePipe } from './validate.pipe.js';
@@ -49,7 +49,6 @@ export class AppController {
     return num + 3;
   }
 
-
   @Get('session')
   @UseInterceptors(TimeInterceptor)
   session(@Session() session: Record<string, any>) {
@@ -59,5 +58,11 @@ export class AppController {
     }
     session.count = session.count + 1;
     return session.count;
+  }
+
+  @Get('user')
+  @Render('uses')
+  user() {
+    return {name: 'bai', age: '34'}
   }
 }

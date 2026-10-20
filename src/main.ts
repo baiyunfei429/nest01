@@ -12,6 +12,8 @@ async function bootstrap() {
     // instrument: ObserveInstrument,
   });
   app.useStaticAssets('public', { prefix: '/static' });
+  app.setBaseViewsDir('views')
+  app.setViewEngine('hbs');
   app.use(function (req: Request, res: Response, next: NextFunction) {
     console.log('before-mid-global', req.url);
     next();
