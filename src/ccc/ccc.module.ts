@@ -2,14 +2,16 @@ import { BeforeApplicationShutdown, Module, OnApplicationShutdown, OnModuleDestr
 import { CccService } from './ccc.service.js';
 import { CccController } from './ccc.controller.js';
 import { ModuleRef } from '@nestjs/core';
+import { ConfigurableModuleClass } from '../ddd.module-definition.js';
 
 @Module({
+  imports:[],
   controllers: [CccController],
   providers: [CccService],
 })
-export class CccModule implements OnModuleDestroy, BeforeApplicationShutdown, OnApplicationShutdown{
+export class CccModule extends ConfigurableModuleClass implements OnModuleDestroy, BeforeApplicationShutdown, OnApplicationShutdown{
   constructor(private moduleRef: ModuleRef) {
-
+    super();
   }
   onModuleDestroy() {
     console.log('CccModule OnModuleDestroy')
